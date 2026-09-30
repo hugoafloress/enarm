@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para el amor de mi vida ❤️</title>
+    <!-- Fuentes Google Aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Confetti y Animaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe6eb 0%, #def3f8 100%);
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+            color: #4a4a4a;
+        }
+
+        /* Corazones Flotantes */
+        .heart-bg {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        /* Contenedor Principal */
+        .container {
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Sobre Interactivo */
+        .envelope-wrapper {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 2px solid #ffccd5;
+        }
+        .envelope-wrapper:hover {
+            transform: scale(1.02);
+        }
+        .envelope-icon {
+            font-size: 70px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Títulos */
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            color: #ff4d6d;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: #ff758f;
+        }
+
+        /* Carta Oculta (se muestra al dar clic) */
+        .card-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3);
+            border: 2px solid #ffccd5;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Secciones y Botones */
+        .love-box {
+            background: #fff0f3;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ff4d6d;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn-aesthetic {
+            background: linear-gradient(45deg, #ff758f, #ff4d6d);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-aesthetic:active {
+            transform: scale(0.98);
+        }
+
+        /* Área de Pregunta con Botón Huidizo */
+        .question-area {
+            margin-top: 25px;
+            position: relative;
+            min-height: 120px;
+        }
+        .btn-yes {
+            background: #ff4d6d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.4);
+        }
+        .btn-no {
+            background: #adb5bd;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            position: absolute;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- PANTALLA INICIAL: SOBRE -->
+        <div id="envelope" class="envelope-wrapper" onclick="openCard()">
+            <div class="envelope-icon">💌</div>
+            <h1>Tienes una cartita especial</h1>
+            <p style="color: #888;">Haz clic sobre el sobre para abrirla ✨</p>
+        </div>
+
+        <!-- CONTENIDO DE LA CARTA -->
+        <div id="card" class="card-content">
+            <h1>Para el amor de mi vida ❤️</h1>
+            <p style="margin-bottom: 15px; color: #666;">Diseñado especialmente para ti con mucho amor... 🥰</p>
+
+            <div class="love-box">
+                <p><b>💌 Un recordatorio bonito:</b></p>
+                <p>Gracias por iluminar mis días, por cada risa compartida y por ser mi lugar seguro en el mundo. ¡Eres lo más hermoso que me ha pasado! ✨</p>
+            </div>
+
+            <!-- GENERADOR DE RAZONES -->
+            <div style="margin: 20px 0;">
+                <h2>✨ Razón del día para amarte</h2>
+                <div id="reason-text" class="love-box" style="text-align: center; font-weight: 600; color: #ff4d6d;">
+                    Haz clic en el botón de abajo 👇
+                </div>
+                <button class="btn-aesthetic" onclick="nextReason()">🎲 Descubrir otra razón</button>
+            </div>
+
+            <!-- PREGUNTA DERTIDA CON BOTÓN QUE HUYE -->
+            <div class="question-area">
+                <h2>¿Prometes hacerme mimos siempre? 🥺</h2>
+                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px;">
+                    <button class="btn-yes" onclick="celebrate()">¡SÍ, OBVIO! ❤️</button>
+                    <button id="no-btn" class="btn-no" onmouseover="moveNoButton()" onclick="moveNoButton()">No 😜</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica de Corazones Flotantes
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            const icons = ['🌸', '💖', '✨', '💕', '🌷', '❤️'];
+            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 300);
+
+        // Abrir Carta
+        function openCard() {
+            document.getElementById('envelope').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        }
+
+        // Razones aleatorias
+        const razones = [
+            "Amo cómo se te forman hoyuelos/sonrisas cuando te ríes. ✨",
+            "Amo que siempre sabes cómo hacerme sentir mejor. 🫂",
+            "Amo la voz tan linda que tienes. 🗣️❤️",
+            "Amo abrazarte fuerte y no querer soltarte nunca. 💕",
+            "Amo que seas mi mejor amigo y mi novio a la vez. 👩‍❤️‍👨",
+            "Amo todo de ti, exactamente como eres. 🥰"
+        ];
+        function nextReason() {
+            const randomReason = razones[Math.floor(Math.random() * razones.length)];
+            document.getElementById('reason-text').innerText = randomReason;
+            confetti({ particleCount: 25, spread: 40, origin: { y: 0.7 } });
+        }
+
+        // Botón "NO" que huye
+        function moveNoButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - 120) - (window.innerWidth / 2 - 60);
+            const y = Math.random() * (window.innerHeight - 120) - (window.innerHeight / 2 - 60);
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Celebración SÍ
+        function celebrate() {
+            confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+            alert('¡SABÍA QUE DIRÍAS QUE SÍ! Te amo con todo mi corazón 💖✨');
+        }
+    </script>
+</body>
+</html>
